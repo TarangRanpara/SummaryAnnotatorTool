@@ -1,0 +1,56 @@
+{% extends "index.html" %}
+
+{% block login_toggle %} 
+<a class="nav-link active" aria-current="page" href="{% url 'logoutURL' %}">Log Out</a>
+{% endblock %}
+                        
+{% block body %}
+<h1>
+    Articles alloted to {{ username }}
+</h1>
+
+<div>
+    {% if completed %}
+    
+        <div class="list-group">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">status</th> 
+                </tr>
+                </thead>
+                <tbody>
+                    {% for summary in completed %}
+                        <tr>
+                                <td> <a href="/articles/{{ summary.0 }}"> article - {{ summary.0 }} </a></td>
+                                <td> {{ summary.1 }} </td>  
+                        </tr>
+                    {% endfor %}
+                </tbody>
+        </div>
+    {% endif %}
+
+
+    {% if summaries %}
+        <div class="list-group">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">status</th> 
+                </tr>
+                </thead>
+                <tbody>
+                    {% for summary in summaries %}
+                        <tr>
+                                <td> <a href="/articles/{{ summary.0 }}"> article - {{ summary.0 }} </a></td>
+                                <td> {{ summary.1 }} </td>  
+                        </tr>
+                    {% endfor %}
+                </tbody>
+        </div>
+    {% endif %}
+        
+    </div>
+{% endblock %}

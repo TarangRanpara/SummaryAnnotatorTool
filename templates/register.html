@@ -1,0 +1,22 @@
+{% extends "index.html" %}
+
+{% block login_toggle %} 
+<a class="nav-link active" aria-current="page" href="{% url 'loginURL' %}">Log In</a>
+{% endblock %}
+
+{% block body %}
+<h1>
+    New User? Register Here!
+</h1>
+
+<div class="card">
+<div class="card-body">
+<form action="" method="post">
+    {{ form.as_p }}
+    <input type="submit" value="submit" class="btn btn-primary">
+    {% csrf_token %}
+</form>
+</div>
+</div>
+
+{% endblock %}
