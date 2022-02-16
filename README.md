@@ -18,6 +18,10 @@ Technologies:
   
 To run this project: 
 
+  0. clone the repo and go to intended location 
+  
+      `cd ~ | git clone https://github.com/TarangRanpara/SummaryAnnotatorTool.git | cd SummaryAnnotatorTool`
+      
   1. update the system: 
   
       `sudo apt update`
@@ -61,3 +65,34 @@ To run this project:
   11. perform installation of the required libs 
       
       `pip install -r requirements.txt`
+      
+  13. make DB Migrations
+  
+      `python3 manage.py makemigrations`
+      `python3 manage.py migrate`
+      
+  14. collect static files
+      
+      `python3 manage.py collectstatic`
+      
+  13. populate the DB from CSV - do the allocation to your users (new/existing)
+      
+      `python3 tool_utils.py help`
+      
+      and choose from one of the below options to perform some utility functions. 
+      
+          1. bulk_entry [csv_file_name]
+          
+          2. bulk_allocate [username] [email] [password] [n]
+          
+          3. bulk_allocate_to_existing [username] [n]
+          
+          4. export [filename]
+          
+          5. help
+
+
+  14. Deploy it using gunicorn and nginx. 
+      (reference: https://www.codewithharry.com/blogpost/django-deploy-nginx-gunicorn)
+          
+          
