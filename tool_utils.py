@@ -97,12 +97,18 @@ def get_status():
     summaries = SummaryTask.objects.all()
     n = len(summaries)
 
+    usernames, status = [], []
     for user in users: 
         allocated_summaries = summaries.filter(annotator = user)
         done_summaries = allocated_summaries.filter(done = True)
-        print(f'{user.username} \t {len(done_summaries)}/{len(allocated_summaries)}')
 
-    print(f'unallocated \t {len(summaries.filter(annotator = None))}')
+        usernames.append(user.username)
+        status.append(f'{len(done_summaries)}/{len(allocated_summaries)}')
+
+    usernames.append('unallocated')
+    status.append(f'{len(summaries.filter(annotator = None))}')
+    
+    print(pd.DataFrame({'user': usernames, 'status': status}))
     
 if __name__ == '__main__':
     tasks = ["bulk_entry", "bulk_allocate", "bulk_allocate_to_existing", "export", "work_status", "help"]
