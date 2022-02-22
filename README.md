@@ -82,14 +82,11 @@ To run this project:
       and choose from one of the below options to perform some utility functions. 
       
           1. bulk_entry [csv_file_name]
-          
           2. bulk_allocate [username] [email] [password] [n]
-          
           3. bulk_allocate_to_existing [username] [n]
-          
           4. export [filename]
-          
-          5. help
+          5. work_status
+          6. help
 
 
   14. Deploy it using gunicorn and nginx. 
