@@ -91,9 +91,21 @@ def generate_csv(filename):
     })
 
     df.to_csv(filename)
+
+def get_status():
+    users = User.objects.all()
+    summaries = SummaryTask.objects.all()
+    n = len(summaries)
+
+    for user in users: 
+        allocated_summaries = summaries.filter(annotator = user)
+        done_summaries = allocated_summaries.filter(done = True)
+        print(f'{user.username} \t {len(done_summaries)}/{len(allocated_summaries)}')
+
+    print(f'unallocated \t {len(summaries.filter(annotator = None))}')
     
 if __name__ == '__main__':
-    tasks = ["bulk_entry", "bulk_allocate", "bulk_allocate_to_existing", "export", "help"]
+    tasks = ["bulk_entry", "bulk_allocate", "bulk_allocate_to_existing", "export", "work_status", "help"]
     task = None
     
     # bulk_entry 
@@ -109,6 +121,7 @@ if __name__ == '__main__':
     filename = None
     try: 
         task = str(sys.argv[1])
+        print(task)
         if task == tasks[0]: 
             file_name = str(sys.argv[2])
             make_bulk_entry(file_name)
@@ -130,12 +143,16 @@ if __name__ == '__main__':
             generate_csv(filename)
 
         elif task == tasks[4]:
+            get_status()
+
+        elif task == tasks[5]:
             print("supported functions: ")
             print(f"\t1. {tasks[0]} [csv_file_name]")
             print(f"\t2. {tasks[1]} [username] [email] [password] [n]")
             print(f"\t3. {tasks[2]} [username] [n]")
             print(f"\t4. {tasks[3]} [filename]")
             print(f"\t5. {tasks[4]}")
+            print(f"\t6. {tasks[5]}")
         else: 
             raise Exception('Not supported operation')
     except Exception as e: 
